@@ -64,3 +64,18 @@ provide similar functionality, but:
 
 * RevelDB barely built and then segfaulted on startup.
 * leveldb-server is weird and tornadoy and undocumented.
+
+
+Running FlatDB
+==============
+
+FlatDB is designed to run with gunicorn or the built-in Flask server.
+The database is specified by the ``DB`` environment variable. For
+example, in development::
+
+    $ pip install -qr requirements.txt
+    $ DB=test.db python flatdb.py -d
+
+Or in production::
+
+    $ gunicorn -b 127.0.0.1:7532 --env DB=test.db flatdb:app

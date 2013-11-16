@@ -1,16 +1,18 @@
 import argparse
-import json
 import leveldb
+import os
+import ujson as json
 from flask import Flask, request, g
 
 
 JSON = {'Content-Type': 'application/json'}
+DB = os.getenv('DB')
 app = Flask(__name__)
 
 
 def ensure_db():
     if 'db' not in g:
-        g.db = leveldb.LevelDB(app.config['DB'])
+        g.db = leveldb.LevelDB(DB)
 
 
 @app.route('/put')
@@ -56,7 +58,5 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--debug', action='store_true', default=False)
     parser.add_argument('-p', '--port', type=int, default=7532)
-    parser.add_argument('-b', '--db', required=True)
     options = parser.parse_args()
-    app.config['DB'] = options.db
     app.run(debug=options.debug, port=options.port)
