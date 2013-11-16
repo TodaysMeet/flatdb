@@ -49,7 +49,7 @@ def delete():
     for k in keys:
         batch.Delete(k)
     g.db.Write(batch)
-    return '', 200
+    return '', 200, JSON
 
 
 if __name__ == '__main__':
