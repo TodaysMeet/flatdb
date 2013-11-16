@@ -48,3 +48,19 @@ not.
 Delete one or more keys from the database. If multiple keys are
 specified, they will be deleted atomically as a batch. If the delete
 succeeeds, the return status will be 200.
+
+
+Why FlatDB?
+===========
+
+`LevelDB <http://leveldb.googlecode.com/svn/trunk/doc/index.html>`_ is
+an ideal solution for a persistent, fast key-value store. (RocksDB is an
+alternative from Facebook that has a lot in common, but is also very
+new.) Since LevelDB (and RocksDB) is a library-level data store, FlatDB
+provides a simple, service-oriented interface to it.
+
+Other projects, like RevelDB and the Python leveldb-server package,
+provide similar functionality, but:
+
+* RevelDB barely built and then segfaulted on startup.
+* leveldb-server is weird and tornadoy and undocumented.
