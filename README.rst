@@ -32,6 +32,8 @@ object with a key for each ``key`` found in the database.
 
     GET /getrange?from=from_key HTTP/1.1
 
+Get a range starting at ``from_key``.
+
 
 ``/put``
 --------
@@ -77,13 +79,26 @@ provide similar functionality, but:
 Running FlatDB
 ==============
 
-FlatDB is designed to run with gunicorn or the built-in Flask server.
-The database is specified by the ``DB`` environment variable. For
-example, in development::
+FlatDB installs two executable scripts: ``flatdb`` and ``flatdb-dev``.
 
-    $ pip install -qr requirements.txt
-    $ DB=test.db python flatdb.py -d
+::
 
-Or in production::
+    $ flatdb -h
+    usage: flatdb [-h] [-d] [-p PORT] [-b DATABASE] [-H HOST]
 
-    $ gunicorn -b 127.0.0.1:7532 --env DB=test.db flatdb:app
+    optional arguments:
+      -h, --help            show this help message and exit
+      -d, --debug
+      -p PORT, --port PORT
+      -b DATABASE, --database DATABASE
+      -H HOST, --host HOST
+
+``--port``:
+    Port to listen on. (``7532``)
+``--host``:
+    Address to bind to. (``127.0.0.1``)
+``--database``:
+    Path to a LevelDB (will be created if it doesn't exist).
+
+``flatdb`` runs a `gevent <http://gevent.org/>`_ server. ``flatdb-dev``
+runs the built-in Flask server.
