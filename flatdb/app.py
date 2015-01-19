@@ -1,21 +1,18 @@
-import argparse
 import leveldb
-import os
 import ujson as json
-from flask import Flask, request, g
+from flask import request, g
+
+from flatdb import flatdb_app
 
 
 JSON = {'Content-Type': 'application/json'}
-DB = os.getenv('DB')
-app = Flask(__name__)
 
 
 def ensure_db():
     if 'db' not in g:
-        g.db = leveldb.LevelDB(DB)
+        g.db = leveldb.LevelDB(flatdb_app.config['DB'])
 
 
-@app.route('/put')
 def put():
     ensure_db()
     keys = request.args.items(multi=True)
@@ -26,7 +23,6 @@ def put():
     return '', 201, JSON
 
 
-@app.route('/get')
 def get():
     ensure_db()
     keys = request.args.getlist('key')
@@ -43,7 +39,6 @@ def get():
     return json.dumps(response), 200, JSON
 
 
-@app.route('/getrange')
 def getrange():
     ensure_db()
     from_key = request.args.get('from')
@@ -56,7 +51,6 @@ def getrange():
     return json.dumps(response), 200, JSON
 
 
-@app.route('/delete')
 def delete():
     ensure_db()
     keys = request.args.getlist('key')
@@ -67,9 +61,8 @@ def delete():
     return '', 200, JSON
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-d', '--debug', action='store_true', default=False)
-    parser.add_argument('-p', '--port', type=int, default=7532)
-    options = parser.parse_args()
-    app.run(debug=options.debug, port=options.port)
+def define_urls(app):
+    app.add_url_rule('/put', view_func=put, methods=['GET'])
+    app.add_url_rule('/get', view_func=get, methods=['GET'])
+    app.add_url_rule('/getrange', view_func=getrange, methods=['GET'])
+    app.add_url_rule('/delete', view_func=delete, methods=['GET'])
