@@ -43,6 +43,19 @@ def get():
     return json.dumps(response), 200, JSON
 
 
+@app.route('/getrange')
+def getrange():
+    ensure_db()
+    from_key = request.args.get('from')
+    response = {}
+    vals = g.db.RangeIter(key_from=from_key)
+    for k, v in vals:
+        response[k] = v
+    if not response:
+        return '', 404, JSON
+    return json.dumps(response), 200, JSON
+
+
 @app.route('/delete')
 def delete():
     ensure_db()

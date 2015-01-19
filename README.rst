@@ -19,10 +19,18 @@ use HTTP GET. (This is not a RESTful interface.)
 
 ::
 
-    GET /get?key=foo&key=bar HTTP/1.0
+    GET /get?key=foo&key=bar HTTP/1.1
 
 Get one or more values from the database. The response will be a JSON
 object with a key for each ``key`` found in the database.
+
+
+``/getrange``
+-------------
+
+::
+
+    GET /getrange?from=from_key HTTP/1.1
 
 
 ``/put``
@@ -30,7 +38,7 @@ object with a key for each ``key`` found in the database.
 
 ::
 
-    GET /put?foo=bar&baz=qux HTTP/1.0
+    GET /put?foo=bar&baz=qux HTTP/1.1
 
 Store one or more values in the database. If multiple key/value pairs
 are specified, they will be written atomically as a batch. If the write
@@ -43,7 +51,7 @@ not.
 
 ::
 
-    GET /delete?key=foo&key=baz HTTP/1.0
+    GET /delete?key=foo&key=baz HTTP/1.1
 
 Delete one or more keys from the database. If multiple keys are
 specified, they will be deleted atomically as a batch. If the delete
