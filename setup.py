@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 install_requires = [
     'flask==0.10.1',
     'leveldb==0.19',
-    'gunicorn==18.0',
+    'gevent==1.0.1',
     'ujson==1.33',
 ]
 
@@ -22,6 +22,7 @@ setup(
     package_data={'': ['README.rst']},
     entry_points={
         'console_scripts': [
+            'flatdb-dev = flatdb.run:dev_server',
             'flatdb = flatdb.run:run_server',
         ],
     },
