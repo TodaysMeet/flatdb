@@ -1,10 +1,10 @@
 from setuptools import setup, find_packages
 
 install_requires = [
-    'flask==0.10.1',
-    'leveldb==0.19',
-    'gevent==1.0.1',
-    'ujson==1.33',
+    'flask==1.0.2',
+    'leveldb==0.194',
+    'gevent==1.3.7',
+    'ujson==1.35',
 ]
 
 
@@ -34,7 +34,7 @@ setup(
         'License :: OSI Approved :: Apache Software License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2.6',
-        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
     ],
 )

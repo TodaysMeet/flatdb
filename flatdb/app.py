@@ -18,7 +18,7 @@ def put():
     keys = request.args.items(multi=True)
     batch = leveldb.WriteBatch()
     for k, v in keys:
-        batch.Put(k, v)
+        batch.Put(k.encode(), v.encode())
     g.db.Write(batch)
     return '', 201, JSON
 
@@ -31,7 +31,8 @@ def get():
     response = {}
     for k in keys:
         try:
-            response[k] = g.db.Get(k)
+            print(g.db.Get(k.encode()))
+            response[k] = g.db.Get(k.encode()).decode()
         except KeyError:
             pass
     if not response:
@@ -41,11 +42,11 @@ def get():
 
 def getrange():
     ensure_db()
-    from_key = request.args.get('from')
+    from_key = request.args.get('from').encode()
     response = {}
     vals = g.db.RangeIter(key_from=from_key)
     for k, v in vals:
-        response[k] = v
+        response[k.decode()] = v.decode()
     if not response:
         return '', 404, JSON
     return json.dumps(response), 200, JSON
@@ -56,7 +57,7 @@ def delete():
     keys = request.args.getlist('key')
     batch = leveldb.WriteBatch()
     for k in keys:
-        batch.Delete(k)
+        batch.Delete(k.encode())
     g.db.Write(batch)
     return '', 200, JSON
 

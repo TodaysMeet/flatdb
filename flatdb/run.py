@@ -28,7 +28,7 @@ def run_server():
     options = get_options()
     configure_app(flatdb_app, options)
 
-    from gevent.wsgi import WSGIServer
+    from gevent.pywsgi import WSGIServer
 
     server = WSGIServer((options.host, options.port), flatdb_app)
     server.serve_forever()
