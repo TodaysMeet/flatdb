@@ -8,5 +8,5 @@ build: ## Build the container
 	docker build -t $(APP_NAME) .
 
 push: build
-	docker tag pkstore $(repo)/$(APP_NAME):latest
+	docker tag $(APP_NAME) $(repo)/$(APP_NAME):latest
 	docker push $(repo)/$(APP_NAME):latest
