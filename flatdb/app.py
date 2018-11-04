@@ -28,7 +28,7 @@ def putblob():
     ensure_db()
     key = request.args.get("key")
     batch = leveldb.WriteBatch()
-    batch.Put(key.encode(), request.stream.read())
+    batch.Put(key.encode(), request.get_data())
     g.db.Write(batch)
     return '', 201, JSON
 
