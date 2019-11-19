@@ -25,6 +25,16 @@ Get one or more values from the database. The response will be a JSON
 object with a key for each ``key`` found in the database.
 
 
+``/getblob``
+--------
+
+::
+
+    GET /getblob?key=foo HTTP/1.1
+
+Retrieve the contents of the key and return it as binary.
+
+
 ``/getrange``
 -------------
 
@@ -44,6 +54,18 @@ Get a range starting at ``from_key``.
 
 Store one or more values in the database. If multiple key/value pairs
 are specified, they will be written atomically as a batch. If the write
+succeeds, the return status will be 201. If the write fails, it will
+not.
+
+
+``/putblob``
+--------
+
+::
+
+    PUT /putblob?key=foo HTTP/1.1
+
+Store the contents of the request in the key sent as parameter. If the write
 succeeds, the return status will be 201. If the write fails, it will
 not.
 

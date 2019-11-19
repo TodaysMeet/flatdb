@@ -1,4 +1,7 @@
+.gitignore
+build
 *.py[co]
 *.db
 dist
 *.egg-info
+.idea
