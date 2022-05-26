@@ -4,7 +4,7 @@ install_requires = [
     'flask==1.0.2',
     'leveldb==0.194',
     'gevent==1.3.7',
-    'ujson==1.35',
+    'ujson==5.2.0',
 ]
 
 
