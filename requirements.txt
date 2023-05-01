@@ -1,4 +1,4 @@
-Flask==1.0.2
+Flask==2.3.2
 leveldb==0.194
 gunicorn==19.9.0
 ujson==1.35
